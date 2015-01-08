@@ -383,5 +383,13 @@ def restricted(request):
     # Return a rendered response to send to the client.
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
-    return render_to_response('rango/restricted.html', context_dict, context)                   
+    return render_to_response('rango/restricted.html', context_dict, context)
+
+# @login_required
+def logout(request):
+    # As we can assume the user is logged in, we can just log them out.
+    logout(request)
+
+    # Take the user back to the homepage.
+    return HttpResponseRedirect('/rango/')                       
             

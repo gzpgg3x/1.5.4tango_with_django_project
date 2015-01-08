@@ -3,6 +3,7 @@
 {% block title %}Add a Page{% endblock %}
 
 {% block body_block %}
+<div class="hero-unit">
         <form id="page_form" method="post" action="/rango/category/{{category_name_url}}/add_page/">
 
             {% csrf_token %}
@@ -18,4 +19,5 @@
 
             <input type="submit" name="submit" value="Create Page" />
         </form>
+</div>        
 {% endblock %}

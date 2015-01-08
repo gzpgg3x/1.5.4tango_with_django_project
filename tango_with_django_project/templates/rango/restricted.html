@@ -3,9 +3,11 @@
 {% block title %}Restricted by Forrest{% endblock %}
 
 {% block body_block %}
+<div class="hero-unit">
 
         <h1>This is a restricted page. </h1>
         Here is the restricted page  <strong>{{ nextStep }}</strong><br />
         <a href='/rango/'>Index</a><br />
         {#}<img src="{% static "rango.png" %}" alt="Picture of Rango" />#}
+</div>        
 {% endblock %}

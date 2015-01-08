@@ -4,8 +4,12 @@
 
 {% block body_block %}
 
+{% load static %}
+
+<div class="hero-unit">
         <h1>About Rango </h1>
         About Rango:  <strong>{{ nextStep }}</strong><br />
         <a href='/rango/'>Index</a><br />
-        {#<img src="{% static "rango.png" %}" alt="Picture of Rango" />#}
+        <img src="{% static "rango.png" %}" alt="Picture of Rango" />
+</div>        
 {% endblock %}
