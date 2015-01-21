@@ -406,3 +406,7 @@ def search(request):
             result_list = run_query(query)
 
     return render_to_response('rango/search.html', {'result_list': result_list}, context)
+
+# if __name__ == '__main__':
+#     # print "Starting Rango population script..."
+#     print "result_list"

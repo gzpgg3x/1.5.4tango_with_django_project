@@ -55,18 +55,28 @@
                 <div class="span3">
                     <div class="well sidebar-nav">
                         <!--- Empty for the timebeing -->
+<!--                     <p>Hello sidebar!</p>   -->                      
+
+<!--                     {% include "rango/category_list.html" %}  -->
+
+                      {% if cat_list %}
+                        <div id="cats">
+                          {% include 'rango/category_list.html' %}
+                        </div>
+                      {% endif %}
+                    </div>      
+
+                    <!-- /.well -->
+                </div>
+                <!--/span
+                    <div class="span9">
+                        {% block body_block %}
+                        {% endblock %}
                     </div>
-                    <!--/.well -->
+                <!/span-->
                 </div>
-                <!--/span-->
-                <div class="span9">
-                    {% block body_block %}
-                    {% endblock %}
-                </div>
-                <!--/span-->
-            </div>
             <!--/row-->
-        </div>
+              </div>
         <!--/.fluid-container-->
 
         <hr>
