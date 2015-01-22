@@ -61,7 +61,7 @@
 
                       {% if cat_list %}
                         <div id="cats">
-                          {% include 'rango/category_list.html' %}
+                          {% include 'rango/category_list.html' with cat_list=cat_list %}
                         </div>
                       {% endif %}
                     </div>      
