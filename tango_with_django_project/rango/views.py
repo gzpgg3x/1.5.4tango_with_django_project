@@ -64,7 +64,10 @@ def index(request):
     # We loop through each category returned, and create a URL attribute.
     # This attribute stores an encoded URL (e.g. spaces replaced with underscores).
     for category in category_list:
-        category.url = category.name.replace(' ', '_')    
+        category.url = category.name.replace(' ', '_')
+
+    cat_list = get_category_list() # DON'T UNDERSTAND
+    context_dict['cat_list'] = cat_list # DON'T UNDERSTAND              
 
     # Render the response and send it back!
     return render_to_response('rango/index.html', context_dict, context)
@@ -108,14 +111,7 @@ def category(request, category_name_url):
     except Category.DoesNotExist:
         # We get here if we didn't find the specified category.
         # Don't do anything - the template displays the "no category" message for us.
-        pass
-
-    # if request.method == 'POST':
-    #     query = request.POST.get('query')
-    #     if query:
-    #         query = query.strip()
-    #         result_list = run_query(query)
-    #         context_dict['result_list'] = result_list        
+        pass  
 
     # Go render the response and return it to the client.                            
     return render_to_response('rango/category.html', context_dict, context)
@@ -133,6 +129,9 @@ def about(request):
     # Construct a dictionary to pass to the template engine as its context.
     # Note the key boldmessage is the same as {{ boldmessage }} in the template!
     context_dict = {'nextStep': "I can fix all django projects, and make everything work"}
+
+    cat_list = get_category_list() # DON'T UNDERSTAND
+    context_dict['cat_list'] = cat_list # DON'T UNDERSTAND    
 
     # Return a rendered response to send to the client.
     # We make use of the shortcut function to make our lives easier.
@@ -162,9 +161,12 @@ def add_category(request):
         # If the request was not a POST, display the form to enter details.
         form = CategoryForm()
 
+    cat_list = get_category_list() # DON'T UNDERSTAND
+    # context_dict['cat_list'] = cat_list # DON'T UNDERSTAND        
+
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('rango/add_category.html', {'form': form}, context)        
+    return render_to_response('rango/add_category.html', {'form': form, 'cat_list': cat_list}, context)        
 
 # def add_page(request, category_name_url):
 #     # Get the context from the request.
@@ -251,10 +253,18 @@ def add_page(request, category_name_url):
     else:
         form = PageForm()
 
+    cat_list = get_category_list() # DON'T UNDERSTAND
+    # context_dict['cat_list'] = cat_list # DON'T UNDERSTAND        
+
+    # return render_to_response( 'rango/add_page.html',
+    #         {'category_name_url': category_name_url,
+    #          'category_name': category_name, 'form': form},
+    #          context)
+
     return render_to_response( 'rango/add_page.html',
             {'category_name_url': category_name_url,
-             'category_name': category_name, 'form': form},
-             context)
+             'category_name': category_name, 'form': form, 'cat_list': cat_list},
+             context)    
 
 # # per github
 # def add_page(request, category_name_url):
@@ -411,6 +421,9 @@ def restricted(request):
     # Note the key boldmessage is the same as {{ boldmessage }} in the template!
     context_dict = {'nextStep': "I can fix all django projects, and make everything work"}
 
+    cat_list = get_category_list() # DON'T UNDERSTAND
+    context_dict['cat_list'] = cat_list # DON'T UNDERSTAND    
+
     # Return a rendered response to send to the client.
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
@@ -435,7 +448,10 @@ def search(request):
             # Run our Bing function to get the results list!
             result_list = run_query(query)
 
-    return render_to_response('rango/search.html', {'result_list': result_list}, context)
+    cat_list = get_category_list() # DON'T UNDERSTAND
+    # context_dict['cat_list'] = cat_list # DON'T UNDERSTAND             
+
+    return render_to_response('rango/search.html', {'result_list': result_list, 'cat_list': cat_list}, context)
 
 # if __name__ == '__main__':
 #     # print "Starting Rango population script..."
