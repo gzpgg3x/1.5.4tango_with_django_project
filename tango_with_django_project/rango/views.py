@@ -73,8 +73,15 @@ def index(request):
     return render_to_response('rango/index.html', context_dict, context)
 
 def category(request, category_name_url):
-    # Request our context from the request passed to us.	
     context = RequestContext(request)
+    result_list = []
+
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+
+        if query:
+            # Run our Bing function to get the results list!
+            result_list = run_query(query)
 
     # Change underscores in the category name to spaces.
     # URLs don't handle spaces well, so we encode them as underscores.
@@ -86,9 +93,8 @@ def category(request, category_name_url):
     context_dict = {'category_name': category_name, 'category_name_url': category_name_url}
 
     cat_list = get_category_list() # DON'T UNDERSTAND
-    context_dict['cat_list'] = cat_list # DON'T UNDERSTAND        
-
-    # # category_list = Page.objects
+    context_dict['cat_list'] = cat_list # DON'T UNDERSTAND 
+    context_dict['result_list'] = result_list        
     try:
         # Can we find a category with the given name?
         # If we can't, the .get() method raises a DoesNotExist exception.
@@ -112,8 +118,7 @@ def category(request, category_name_url):
         # We get here if we didn't find the specified category.
         # Don't do anything - the template displays the "no category" message for us.
         pass  
-
-    # Go render the response and return it to the client.                            
+                           
     return render_to_response('rango/category.html', context_dict, context)
 
 
