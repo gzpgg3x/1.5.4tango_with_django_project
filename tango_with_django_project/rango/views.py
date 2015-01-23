@@ -4,9 +4,11 @@ from django.shortcuts import render_to_response
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm
 from rango.forms import UserForm, UserProfileForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from rango.bing_search import run_query
+from django.contrib.auth.models import User
 
 def encode_url(str):
     return str.replace(' ', '_')
@@ -461,3 +463,21 @@ def search(request):
 # if __name__ == '__main__':
 #     # print "Starting Rango population script..."
 #     print "result_list"
+
+@login_required
+def profile(request):
+    context = RequestContext(request)
+
+    cat_list = get_category_list() # DON'T UNDERSTAND
+    context_dict = {'cat_list': cat_list}
+    u = User.objects.get(username=request.user)
+
+    try:      
+        up = UserProfile.objects.get(user=u)
+    except:
+        up = None
+
+    context_dict['user'] = u
+    context_dict['userprofile'] = up
+
+    return render_to_response('rango/profile.html', context_dict, context)    
